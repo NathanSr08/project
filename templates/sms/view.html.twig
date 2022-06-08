@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SmsController!{% endblock %}
+
+{% block body %}
+<div class="container">
+<br>
+<h3>Nouveaux Message</h3>
+</div>
+{% for sms in smss %}
+<div class="container">
+<br>
+
+<button type="button" class="btn btn-outline-primary disabled">{{sms.date}}</button>
+
+
+  <div class="form-group">
+      <label for="exampleInputPassword1" class="form-label mt-4">De</label>
+     <input class="form-control" id="disabledInput" type="text" placeholder="{{sms.email}}" disabled="">
+    </div>
+   <div class="form-group">
+      <label for="exampleInputPassword1" class="form-label mt-4">Subject</label>
+     <input class="form-control" id="disabledInput" type="text" placeholder="{{sms.subject}}" disabled="">
+    </div>
+
+     <div class="form-group">
+      <label for="exampleTextarea" class="form-label mt-4">Message</label>
+      <textarea class="form-control" id="editor" name="sms[sms]"id="exampleTextarea" rows="3" placeholder="{{sms.sms|raw}}" disabled=""></textarea>
+    </div>
+   
+    <br>
+     
+  
+    </div>
+    <div class="container">
+    <div class="container">
+    <div class="container">
+
+    <hr/>
+    </div>
+    </div>
+    </div>
+
+    
+{% endfor %}
+
+{% endblock %}

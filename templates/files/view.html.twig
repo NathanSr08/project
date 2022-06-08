@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TuestconnecterController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+<br>
+  <form name="file" method="post"">
+        <label for="exampleFormControlSelect1">Fichier demander</label>
+         <select class="form-control" name="file[id_demande]" id="exampleFormControlSelect1">
+           {% for demande in demandes %}
+           <option value="{{demande.id}}">{{demande.Nom}}</option>
+          {% endfor %} 
+         </select>
+         <br>
+         <label for="exampleFormControlSelect1">Clients</label>
+         <select class="form-control" name="file[id_cli]" id="exampleFormControlSelect1">
+          <option value="">Chosit un client</option>
+           {% for test in tests %}
+           <option value="{{test.id}}">{{test.nom}}.{{test.prenom}}: {{test.NomSociete}}</option>
+          {% endfor %} 
+         </select>
+         <br>
+      <button type="submite" class="btn btn-outline-success">Filtrer</button>
+     {% if is_granted('ROLE_ADMIN') %}
+         <a href="/admin/files"><button type="button" class="btn btn-outline-danger">Remove filtre</button></a>
+        {% else %}
+           <a href="/colab/files"><button type="button" class="btn btn-outline-danger">Remove filtre</button></a>
+           {% endif %}
+
+
+         </form>
+         <br>
+<h2>Liste des Fichiers</h2>
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+     <th scope="col">Client</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Fichier Demande</th>
+     
+
+  
+    </tr>
+  </thead>
+  <tbody>
+   {% for client in clients %}
+    <tr>
+      <th>{{client.prenom}}</th>
+      <th scope="row"><a href="/viewpdf/{{client.name_md5}}" target="_blank">{{client.nom_fichier}}</a></th>
+      <th>{{client.nom}}</th>
+      
+     
+    
+    </tr>
+    {% endfor %}
+   
+  </tbody>
+</table>
+</div>
+
+
+
+{% endblock %}

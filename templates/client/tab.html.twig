@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TuestconnecterController!{% endblock %}
+
+{% block body %}
+<br><br>
+<h1 style="text-align:center">Tableau Recapitulatif</h1>
+<br>
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">Clients</th>
+      {% for fd in fds %}
+      <th scope="col">{{fd.nom}}</th>
+      {% endfor %}
+    
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for client in clients %}
+    <tr>
+    <th>{{client.nom}}</th>
+    {% for fd in fds %}
+      <th scope="row">a</th>
+      {% endfor %}
+    </tr>
+     {% endfor %}
+ 
+    
+  </tbody>
+</table>
+{% endblock %}

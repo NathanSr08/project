@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TuestconnecterController!{% endblock %}
+
+{% block body %}
+{% if message == 1 %}
+<div class="alert alert-success" role="alert">
+Le Client à été crée!
+</div>
+{% endif %}
+<h2 style="text-align:center">Ajouter un Client</h2>
+
+<div class="container">
+<div class="row">
+ <div class="col-md-4">
+
+
+
+{{ form_start(form) }}
+{{form_row(form.Nom,{'value':cli.Nom})}}
+{{form_row(form.Prenom)}}
+
+
+{{form_row(form.Mail)}}
+
+</div>
+
+
+ <div class="col-4">
+ {{form_row(form.nom_Societe)}}
+{{form_row(form.Adresse)}}
+
+{{form_row(form.Num_pro)}}
+{{form_row(form.id_adm,{'attr':{'value':cli.IdAdm}})}}
+
+
+</div>
+ <div class="col-4">
+ {{form_row(form.Cp)}}
+{{form_row(form.Ville)}}
+{{form_row(form.num_siret)}}
+ </div>
+</div>
+<br>
+<button type="submite" class="btn btn-success">Modifier</button>
+{{ form_end(form) }}
+
+</div>
+{% endblock %}

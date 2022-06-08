@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="alert alert-success" role="alert">
+ Page Operationnel @Nathan!
+</div>
+<div class="container">
+<form name="file" method="post" enctype="multipart/form-data">
+ <div class="form-group">
+    <label for="exampleFormControlSelect1">Client</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="file[id_client]">
+    {% for client in clients %}
+      <option value="{{client.id}}">{{client.Nom}} - {{client.NomSociete}}</option>
+     {% endfor %} 
+    </select>
+  </div>
+  <br>
+   <div class="form-group">
+    <label for="exampleFormControlSelect1">Fichier demander</label>
+    <select class="form-control" name="file[id_demande]" id="exampleFormControlSelect1">
+      {% for demande in demandes %}
+      <option value="{{demande.id}}">{{demande.Nom}}</option>
+     {% endfor %} 
+    </select>
+    <br>
+    <div class="form-group">
+    <label for="exampleFormControlFile1">Veuillez ajouter le fichier</label>
+    <input type="file" class="form-control" name="file_name" id="exampleFormControlFile1">
+  </div>
+  </div>
+  <br>
+<button type="submite" class="btn btn-success">Success</button>
+  </form>
+  </div>
+{% endblock%}

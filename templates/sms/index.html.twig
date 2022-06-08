@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SmsController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="container">
+<br>
+<h3>Envoyer une note aux collaborateurs</h3>
+
+
+<form action="/colab/sms_send" method="POST" name="sms">
+   <div class="form-group">
+      <label for="exampleInputPassword1" class="form-label mt-4">Subject</label>
+      <input type="text" name="sms[sujet]" class="form-control" id="exampleInputPassword1" placeholder="Sujet">
+    </div>
+<div class="form-group">
+    <label for="exampleFormControlSelect1">Client</label>
+    
+  <select class="form-control" name="sms[a]" id="exampleFormControlSelect1" >
+      <option value="0">All</option>
+
+    {% for user in users %}
+      
+      <option value="{{user.id}}">{{user.email}}</option>
+     {% endfor %} 
+    </select>
+  </div>
+     <div class="form-group">
+      <label for="exampleTextarea" class="form-label mt-4">Message</label>
+      <textarea class="form-control" id="editor" name="sms[sms]"id="exampleTextarea" rows="3"></textarea>
+    </div>
+    <br>
+      <button type="submite" class="btn btn-primary">Send</button>
+    </form>
+  
+    </div>
+<script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+{% endblock %}
