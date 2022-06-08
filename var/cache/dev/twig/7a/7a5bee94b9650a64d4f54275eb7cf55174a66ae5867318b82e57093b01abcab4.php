@@ -132,7 +132,7 @@ class __TwigTemplate_fd4bd58a156d37cc20b7abe535767e072710db5c2e6359787e4367faee9
       <textarea class=\"form-control\" id=\"editor\" name=\"sms[sms]\"id=\"exampleTextarea\" rows=\"3\"></textarea>
     </div>
     <br>
-      <button type=\"submite\" class=\"btn btn-primary\">Send</button>
+      <button type=\"submite\" class=\"btn btn-primary\">Sendd</button>
     </form>
   
     </div>
@@ -205,7 +205,7 @@ class __TwigTemplate_fd4bd58a156d37cc20b7abe535767e072710db5c2e6359787e4367faee9
       <textarea class=\"form-control\" id=\"editor\" name=\"sms[sms]\"id=\"exampleTextarea\" rows=\"3\"></textarea>
     </div>
     <br>
-      <button type=\"submite\" class=\"btn btn-primary\">Send</button>
+      <button type=\"submite\" class=\"btn btn-primary\">Sendd</button>
     </form>
   
     </div>

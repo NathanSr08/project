@@ -121,9 +121,9 @@ class __TwigTemplate_fa452d2f1046facd2437c203665d28a5f3fec6f1ffada9ab03d4d631751
 
      <div class=\"form-group\">
       <label for=\"exampleTextarea\" class=\"form-label mt-4\">Message</label>
-      <textarea class=\"form-control\" id=\"editor\" name=\"sms[sms]\"id=\"exampleTextarea\" rows=\"3\" placeholder=\"";
+      <textarea class=\"form-control\"  name=\"sms[sms]\" rows=\"10\" placeholder=\"";
             // line 28
-            echo twig_get_attribute($this->env, $this->source, $context["sms"], "sms", [], "any", false, false, false, 28);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["sms"], "sms", [], "any", false, false, false, 28), "html", null, true);
             echo "\" disabled=\"\"></textarea>
     </div>
    
@@ -201,7 +201,7 @@ class __TwigTemplate_fa452d2f1046facd2437c203665d28a5f3fec6f1ffada9ab03d4d631751
 
      <div class=\"form-group\">
       <label for=\"exampleTextarea\" class=\"form-label mt-4\">Message</label>
-      <textarea class=\"form-control\" id=\"editor\" name=\"sms[sms]\"id=\"exampleTextarea\" rows=\"3\" placeholder=\"{{sms.sms|raw}}\" disabled=\"\"></textarea>
+      <textarea class=\"form-control\"  name=\"sms[sms]\" rows=\"10\" placeholder=\"{{sms.sms}}\" disabled=\"\"></textarea>
     </div>
    
     <br>
