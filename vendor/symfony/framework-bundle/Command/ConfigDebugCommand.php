@@ -100,7 +100,7 @@ EOF
 
         if (null === $path = $input->getArgument('path')) {
             $io->title(
-                sprintf('Current configuration for %s', ($name === $extensionAlias ? sprintf('extension with alias "%s"', $extensionAlias) : sprintf('"%s"', $name)))
+                sprintf('Current configuration for %s', $name === $extensionAlias ? sprintf('extension with alias "%s"', $extensionAlias) : sprintf('"%s"', $name))
             );
 
             $io->writeln(Yaml::dump([$extensionAlias => $config], 10));
@@ -139,9 +139,9 @@ EOF
     /**
      * Iterate over configuration until the last step of the given path.
      *
-     * @throws LogicException If the configuration does not exist
-     *
      * @return mixed
+     *
+     * @throws LogicException If the configuration does not exist
      */
     private function getConfigForPath(array $config, string $path, string $alias)
     {

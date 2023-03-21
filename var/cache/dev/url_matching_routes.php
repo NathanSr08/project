@@ -12,7 +12,7 @@ return [
         '/colab/add_fd' => [[['_route' => 'app_add_fd', '_controller' => 'App\\Controller\\ClientController::add_fd'], null, null, null, false, false, null]],
         '/colab/files' => [[['_route' => 'app_view_allfiles_byuser', '_controller' => 'App\\Controller\\ClientController::view_files_all'], null, null, null, false, false, null]],
         '/admin/view_fd' => [[['_route' => 'app_view_fd', '_controller' => 'App\\Controller\\FdController::View_client'], null, null, null, false, false, null]],
-        '/admin/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
+        '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
         '/colab/addclient' => [[['_route' => 'app_newclient', '_controller' => 'App\\Controller\\SecurityController::add_client'], null, null, null, false, false, null]],

@@ -51,11 +51,11 @@ interface AuthenticatorInterface
      * You may throw any AuthenticationException in this method in case of error (e.g.
      * a UserNotFoundException when the user cannot be found).
      *
-     * @throws AuthenticationException
-     *
      * @return Passport
+     *
+     * @throws AuthenticationException
      */
-    public function authenticate(Request $request); /*: Passport;*/
+    public function authenticate(Request $request); /* : Passport; */
 
     /**
      * Create an authenticated token for the given user.

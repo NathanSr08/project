@@ -46,7 +46,7 @@ class InfoClient
     private $Adresse;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $Num_pro;
 
@@ -140,12 +140,12 @@ class InfoClient
         return $this;
     }
 
-    public function getNumPro(): ?int
+    public function getNumPro(): ?string
     {
         return $this->Num_pro;
     }
 
-    public function setNumPro(int $Num_pro): self
+    public function setNumPro(string $Num_pro): self
     {
         $this->Num_pro = $Num_pro;
 

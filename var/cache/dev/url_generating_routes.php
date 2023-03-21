@@ -8,7 +8,7 @@ return [
     'app_view_allfiles_byuser' => [[], ['_controller' => 'App\\Controller\\ClientController::view_files_all'], [], [['text', '/colab/files']], [], [], []],
     'app_view_fd' => [[], ['_controller' => 'App\\Controller\\FdController::View_client'], [], [['text', '/admin/view_fd']], [], [], []],
     'app_del_fd' => [['id'], ['_controller' => 'App\\Controller\\FdController::Dell_fd'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/del_fd']], [], [], []],
-    'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/admin/register']], [], [], []],
+    'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/']], [], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
     'app_newclient' => [[], ['_controller' => 'App\\Controller\\SecurityController::add_client'], [], [['text', '/colab/addclient']], [], [], []],

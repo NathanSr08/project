@@ -117,7 +117,7 @@ trait HttpClientTrait
         }
 
         // Validate on_progress
-        if (!\is_callable($onProgress = $options['on_progress'] ?? 'var_dump')) {
+        if (isset($options['on_progress']) && !\is_callable($onProgress = $options['on_progress'])) {
             throw new InvalidArgumentException(sprintf('Option "on_progress" must be callable, "%s" given.', get_debug_type($onProgress)));
         }
 
@@ -171,7 +171,7 @@ trait HttpClientTrait
 
         // Finalize normalization of options
         $options['http_version'] = (string) ($options['http_version'] ?? '') ?: null;
-        if (0 > $options['timeout'] = (float) ($options['timeout'] ?? ini_get('default_socket_timeout'))) {
+        if (0 > $options['timeout'] = (float) ($options['timeout'] ?? \ini_get('default_socket_timeout'))) {
             $options['timeout'] = 172800.0; // 2 days
         }
 
@@ -206,9 +206,11 @@ trait HttpClientTrait
 
         $options += $defaultOptions;
 
-        foreach (self::$emptyDefaults ?? [] as $k => $v) {
-            if (!isset($options[$k])) {
-                $options[$k] = $v;
+        if (isset(self::$emptyDefaults)) {
+            foreach (self::$emptyDefaults as $k => $v) {
+                if (!isset($options[$k])) {
+                    $options[$k] = $v;
+                }
             }
         }
 
@@ -545,7 +547,7 @@ trait HttpClientTrait
             }
 
             // https://tools.ietf.org/html/rfc3986#section-3.3
-            $parts[$part] = preg_replace_callback("#[^-A-Za-z0-9._~!$&/'()*+,;=:@%]++#", function ($m) { return rawurlencode($m[0]); }, $parts[$part]);
+            $parts[$part] = preg_replace_callback("#[^-A-Za-z0-9._~!$&/'()[\]*+,;=:@\\\\^`{|}%]++#", function ($m) { return rawurlencode($m[0]); }, $parts[$part]);
         }
 
         return [
@@ -619,6 +621,31 @@ trait HttpClientTrait
         $queryArray = [];
 
         if ($queryString) {
+            if (str_contains($queryString, '%')) {
+                // https://tools.ietf.org/html/rfc3986#section-2.3 + some chars not encoded by browsers
+                $queryString = strtr($queryString, [
+                    '%21' => '!',
+                    '%24' => '$',
+                    '%28' => '(',
+                    '%29' => ')',
+                    '%2A' => '*',
+                    '%2B' => '+',
+                    '%2C' => ',',
+                    '%2F' => '/',
+                    '%3A' => ':',
+                    '%3B' => ';',
+                    '%40' => '@',
+                    '%5B' => '[',
+                    '%5C' => '\\',
+                    '%5D' => ']',
+                    '%5E' => '^',
+                    '%60' => '`',
+                    '%7B' => '{',
+                    '%7C' => '|',
+                    '%7D' => '}',
+                ]);
+            }
+
             foreach (explode('&', $queryString) as $v) {
                 $queryArray[rawurldecode(explode('=', $v, 2)[0])] = $v;
             }
