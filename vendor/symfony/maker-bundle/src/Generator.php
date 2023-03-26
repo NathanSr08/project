@@ -23,23 +23,26 @@ use Symfony\Bundle\MakerBundle\Util\TemplateComponentGenerator;
  */
 class Generator
 {
-    private GeneratorTwigHelper $twigHelper;
-    private array $pendingOperations = [];
-    private ?TemplateComponentGenerator $templateComponentGenerator;
+    private $fileManager;
+    private $twigHelper;
+    private $pendingOperations = [];
+    private $namespacePrefix;
+    private $phpCompatUtil;
+    private $templateComponentGenerator;
 
-    public function __construct(
-        private FileManager $fileManager,
-        private string $namespacePrefix,
-        PhpCompatUtil $phpCompatUtil = null,
-        TemplateComponentGenerator $templateComponentGenerator = null,
-    ) {
+    public function __construct(FileManager $fileManager, string $namespacePrefix, PhpCompatUtil $phpCompatUtil = null, TemplateComponentGenerator $templateComponentGenerator = null)
+    {
+        $this->fileManager = $fileManager;
         $this->twigHelper = new GeneratorTwigHelper($fileManager);
         $this->namespacePrefix = trim($namespacePrefix, '\\');
 
-        if (null !== $phpCompatUtil) {
-            trigger_deprecation('symfony/maker-bundle', 'v1.44.0', 'Initializing Generator while providing an instance of PhpCompatUtil is deprecated.');
+        if (null === $phpCompatUtil) {
+            $phpCompatUtil = new PhpCompatUtil($fileManager);
+
+            trigger_deprecation('symfony/maker-bundle', '1.25', 'Initializing Generator without providing an instance of PhpCompatUtil is deprecated.');
         }
 
+        $this->phpCompatUtil = $phpCompatUtil;
         $this->templateComponentGenerator = $templateComponentGenerator;
     }
 
@@ -119,10 +122,10 @@ class Generator
      *      // App\Controller\FooController
      *      $gen->createClassNameDetails('foo', 'Controller', 'Controller');
      *
-     *      // App\Controller\Foo\AdminController
+     *      // App\Controller\Admin\FooController
      *      $gen->createClassNameDetails('Foo\\Admin', 'Controller', 'Controller');
      *
-     *      // App\Security\Voter\CoolVoter
+     *      // App\Controller\Security\Voter\CoolController
      *      $gen->createClassNameDetails('Cool', 'Security\Voter', 'Voter');
      *
      *      // Full class names can also be passed. Imagine the user has an autoload
@@ -148,7 +151,7 @@ class Generator
 
         // if this is a custom class, we may be completely different than the namespace prefix
         // the best way can do, is find the PSR4 prefix and use that
-        if (!str_starts_with($className, $fullNamespacePrefix)) {
+        if (0 !== strpos($className, $fullNamespacePrefix)) {
             $fullNamespacePrefix = $this->fileManager->getNamespacePrefixForClass($className);
         }
 
@@ -160,13 +163,16 @@ class Generator
         return $this->fileManager->getRootDirectory();
     }
 
-    private function addOperation(string $targetPath, string $templateName, array $variables): void
+    private function addOperation(string $targetPath, string $templateName, array $variables)
     {
         if ($this->fileManager->fileExists($targetPath)) {
             throw new RuntimeCommandException(sprintf('The file "%s" can\'t be generated because it already exists.', $this->fileManager->relativizePath($targetPath)));
         }
 
         $variables['relative_path'] = $this->fileManager->relativizePath($targetPath);
+        $variables['use_attributes'] = $this->phpCompatUtil->canUseAttributes();
+        $variables['use_typed_properties'] = $this->phpCompatUtil->canUseTypedProperties();
+        $variables['use_union_types'] = $this->phpCompatUtil->canUseUnionTypes();
 
         $templatePath = $templateName;
         if (!file_exists($templatePath)) {
@@ -190,8 +196,6 @@ class Generator
 
     /**
      * Actually writes and file changes that are pending.
-     *
-     * @return void
      */
     public function writeChanges()
     {
@@ -230,8 +234,6 @@ class Generator
 
     /**
      * Generate a template file.
-     *
-     * @return void
      */
     public function generateTemplate(string $targetPath, string $templateName, array $variables = [])
     {

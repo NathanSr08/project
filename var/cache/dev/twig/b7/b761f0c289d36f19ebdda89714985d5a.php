@@ -241,6 +241,6 @@ Le Client à été crée!
 {{ form_end(form) }}
 
 </div>
-{% endblock %}", "client/edit.html.twig", "/home/lab/symf_docker/project/templates/client/edit.html.twig");
+{% endblock %}", "client/edit.html.twig", "/var/www/project/templates/client/edit.html.twig");
     }
 }

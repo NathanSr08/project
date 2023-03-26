@@ -221,6 +221,6 @@ class __TwigTemplate_c6244eff0953619cbed6d66ff221d504 extends Template
 {% endfor %}
 
 {% endblock %}
-", "sms/view.html.twig", "/home/lab/symf_docker/project/templates/sms/view.html.twig");
+", "sms/view.html.twig", "/var/www/project/templates/sms/view.html.twig");
     }
 }

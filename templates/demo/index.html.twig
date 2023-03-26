@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DemoController!{% endblock %}
+
+{% block body %}
+{# {{ dump(form) }} #}
+{{ form_start(form,{ 'attr':{ 'id':'add_client' } }) }}
+{{form_row(form.name)}}
+{{ form_end(form) }}
+
+{% endblock %}

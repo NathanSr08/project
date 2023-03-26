@@ -12,7 +12,6 @@
 namespace Symfony\Bundle\MakerBundle\Maker;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -46,12 +45,16 @@ use Symfony\Component\Validator\Validation;
  */
 final class MakeCrud extends AbstractMaker
 {
-    private Inflector $inflector;
-    private string $controllerClassName;
-    private bool $generateTests = false;
+    private $doctrineHelper;
+    private $formTypeRenderer;
+    private $inflector;
+    private $controllerClassName;
+    private $generateTests = false;
 
-    public function __construct(private DoctrineHelper $doctrineHelper, private FormTypeRenderer $formTypeRenderer)
+    public function __construct(DoctrineHelper $doctrineHelper, FormTypeRenderer $formTypeRenderer)
     {
+        $this->doctrineHelper = $doctrineHelper;
+        $this->formTypeRenderer = $formTypeRenderer;
         $this->inflector = InflectorFactory::create()->build();
     }
 

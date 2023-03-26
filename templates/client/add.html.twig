@@ -16,7 +16,7 @@ Le Client à été crée!
 
 
 
-{{ form_start(form) }}
+{{ form_start(form,{ 'attr': { 'id' : 'add_client' } }) }}
 {{form_row(form.Nom)}}
 {{form_row(form.Prenom)}}
 
@@ -42,7 +42,8 @@ Le Client à été crée!
  </div>
 </div>
 <br>
-<button type="submite" class="btn btn-success">AJouter</button>
+
+<button type="submit" class="btn btn-success">Ajouter</button>
 {{ form_end(form) }}
 
 </div>

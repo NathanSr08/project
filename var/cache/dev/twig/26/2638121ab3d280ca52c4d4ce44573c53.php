@@ -190,6 +190,6 @@ class __TwigTemplate_c6b10dcefd5174956f3dd7c8873ecebf extends Template
           <br>
        
 </div>
-{% endblock%}", "files/search.html.twig", "/home/lab/symf_docker/project/templates/files/search.html.twig");
+{% endblock%}", "files/search.html.twig", "/var/www/project/templates/files/search.html.twig");
     }
 }

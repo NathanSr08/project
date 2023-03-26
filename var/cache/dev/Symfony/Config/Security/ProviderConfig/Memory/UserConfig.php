@@ -2,10 +2,8 @@
 
 namespace Symfony\Config\Security\ProviderConfig\Memory;
 
-
 use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-
 
 /**
  * This class is automatically generated to help in creating a config.
@@ -15,7 +13,7 @@ class UserConfig
     private $password;
     private $roles;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -25,10 +23,10 @@ class UserConfig
     {
         $this->_usedProperties['password'] = true;
         $this->password = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @param ParamConfigurator|list<mixed|ParamConfigurator> $value
      * @return $this
@@ -37,30 +35,29 @@ class UserConfig
     {
         $this->_usedProperties['roles'] = true;
         $this->roles = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
-    
         if (array_key_exists('password', $value)) {
             $this->_usedProperties['password'] = true;
             $this->password = $value['password'];
             unset($value['password']);
         }
-    
+
         if (array_key_exists('roles', $value)) {
             $this->_usedProperties['roles'] = true;
             $this->roles = $value['roles'];
             unset($value['roles']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -70,7 +67,7 @@ class UserConfig
         if (isset($this->_usedProperties['roles'])) {
             $output['roles'] = $this->roles;
         }
-    
+
         return $output;
     }
 

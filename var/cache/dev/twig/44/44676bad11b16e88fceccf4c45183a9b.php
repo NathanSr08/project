@@ -239,6 +239,6 @@ class __TwigTemplate_d5cbba6076a5eb7a4ed895a9443a3ec3 extends Template
 
 
 
-{% endblock %}", "files/view_client.html.twig", "/home/lab/symf_docker/project/templates/files/view_client.html.twig");
+{% endblock %}", "files/view_client.html.twig", "/var/www/project/templates/files/view_client.html.twig");
     }
 }

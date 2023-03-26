@@ -6,6 +6,7 @@ return [
     'app_tab_recap' => [[], ['_controller' => 'App\\Controller\\ClientController::index'], [], [['text', '/colab/recap']], [], [], []],
     'app_add_fd' => [[], ['_controller' => 'App\\Controller\\ClientController::add_fd'], [], [['text', '/colab/add_fd']], [], [], []],
     'app_view_allfiles_byuser' => [[], ['_controller' => 'App\\Controller\\ClientController::view_files_all'], [], [['text', '/colab/files']], [], [], []],
+    'app_demo' => [[], ['_controller' => 'App\\Controller\\DemoController::index'], [], [['text', '/demo']], [], [], []],
     'app_view_fd' => [[], ['_controller' => 'App\\Controller\\FdController::View_client'], [], [['text', '/admin/view_fd']], [], [], []],
     'app_del_fd' => [['id'], ['_controller' => 'App\\Controller\\FdController::Dell_fd'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/del_fd']], [], [], []],
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],

@@ -171,6 +171,6 @@ class __TwigTemplate_361410e06f66c8d3c0271bc7e39858d3 extends Template
         {%- endfor -%}
     </pre>
 {% endif %}
-", "@Doctrine/Collector/explain.html.twig", "/home/lab/symf_docker/project/vendor/doctrine/doctrine-bundle/Resources/views/Collector/explain.html.twig");
+", "@Doctrine/Collector/explain.html.twig", "/var/www/project/vendor/doctrine/doctrine-bundle/Resources/views/Collector/explain.html.twig");
     }
 }

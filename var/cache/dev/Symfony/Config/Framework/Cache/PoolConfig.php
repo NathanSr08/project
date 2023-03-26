@@ -2,10 +2,8 @@
 
 namespace Symfony\Config\Framework\Cache;
 
-
 use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-
 
 /**
  * This class is automatically generated to help in creating a config.
@@ -20,7 +18,7 @@ class PoolConfig
     private $earlyExpirationMessageBus;
     private $clearer;
     private $_usedProperties = [];
-    
+
     /**
      * @param ParamConfigurator|list<mixed|ParamConfigurator> $value
      * @return $this
@@ -29,10 +27,10 @@ class PoolConfig
     {
         $this->_usedProperties['adapters'] = true;
         $this->adapters = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -42,10 +40,10 @@ class PoolConfig
     {
         $this->_usedProperties['tags'] = true;
         $this->tags = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default false
      * @param ParamConfigurator|bool $value
@@ -55,13 +53,13 @@ class PoolConfig
     {
         $this->_usedProperties['public'] = true;
         $this->public = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Default lifetime of the pool
-     * @example "600" for 5 minutes expressed in seconds, "PT5M" for five minutes expressed as ISO 8601 time interval, or "5 minutes" as a date expression
+     * @example "300" for 5 minutes expressed in seconds, "PT5M" for five minutes expressed as ISO 8601 time interval, or "5 minutes" as a date expression
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -70,10 +68,10 @@ class PoolConfig
     {
         $this->_usedProperties['defaultLifetime'] = true;
         $this->defaultLifetime = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * Overwrite the setting from the default provider for this adapter.
      * @default null
@@ -84,10 +82,10 @@ class PoolConfig
     {
         $this->_usedProperties['provider'] = true;
         $this->provider = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @example "messenger.default_bus" to send early expiration events to the default Messenger bus.
      * @default null
@@ -98,10 +96,10 @@ class PoolConfig
     {
         $this->_usedProperties['earlyExpirationMessageBus'] = true;
         $this->earlyExpirationMessageBus = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -111,60 +109,59 @@ class PoolConfig
     {
         $this->_usedProperties['clearer'] = true;
         $this->clearer = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
-    
         if (array_key_exists('adapters', $value)) {
             $this->_usedProperties['adapters'] = true;
             $this->adapters = $value['adapters'];
             unset($value['adapters']);
         }
-    
+
         if (array_key_exists('tags', $value)) {
             $this->_usedProperties['tags'] = true;
             $this->tags = $value['tags'];
             unset($value['tags']);
         }
-    
+
         if (array_key_exists('public', $value)) {
             $this->_usedProperties['public'] = true;
             $this->public = $value['public'];
             unset($value['public']);
         }
-    
+
         if (array_key_exists('default_lifetime', $value)) {
             $this->_usedProperties['defaultLifetime'] = true;
             $this->defaultLifetime = $value['default_lifetime'];
             unset($value['default_lifetime']);
         }
-    
+
         if (array_key_exists('provider', $value)) {
             $this->_usedProperties['provider'] = true;
             $this->provider = $value['provider'];
             unset($value['provider']);
         }
-    
+
         if (array_key_exists('early_expiration_message_bus', $value)) {
             $this->_usedProperties['earlyExpirationMessageBus'] = true;
             $this->earlyExpirationMessageBus = $value['early_expiration_message_bus'];
             unset($value['early_expiration_message_bus']);
         }
-    
+
         if (array_key_exists('clearer', $value)) {
             $this->_usedProperties['clearer'] = true;
             $this->clearer = $value['clearer'];
             unset($value['clearer']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -189,7 +186,7 @@ class PoolConfig
         if (isset($this->_usedProperties['clearer'])) {
             $output['clearer'] = $this->clearer;
         }
-    
+
         return $output;
     }
 

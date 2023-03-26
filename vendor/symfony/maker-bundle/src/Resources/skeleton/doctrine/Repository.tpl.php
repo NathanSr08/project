@@ -19,7 +19,7 @@ class <?= $class_name; ?> extends ServiceEntityRepository<?= $with_password_upgr
         parent::__construct($registry, <?= $entity_class_name; ?>::class);
     }
 
-    public function save(<?= $entity_class_name ?> $entity, bool $flush = false): void
+    public function add(<?= $entity_class_name ?> $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -51,7 +51,7 @@ class <?= $class_name; ?> extends ServiceEntityRepository<?= $with_password_upgr
 
         $user->setPassword($newHashedPassword);
 
-        $this->save($user, true);
+        $this->add($user, true);
     }
 
 <?php endif ?>

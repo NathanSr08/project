@@ -430,6 +430,6 @@ class __TwigTemplate_3ccd1bef610ad9e8dd9380b5a52aca17 extends Template
         {% endblock %}
     </body>
 </html>
-", "base.html.twig", "/home/lab/symf_docker/project/templates/base.html.twig");
+", "base.html.twig", "/var/www/project/templates/base.html.twig");
     }
 }

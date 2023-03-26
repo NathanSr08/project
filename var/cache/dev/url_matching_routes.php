@@ -11,6 +11,7 @@ return [
         '/colab/recap' => [[['_route' => 'app_tab_recap', '_controller' => 'App\\Controller\\ClientController::index'], null, null, null, false, false, null]],
         '/colab/add_fd' => [[['_route' => 'app_add_fd', '_controller' => 'App\\Controller\\ClientController::add_fd'], null, null, null, false, false, null]],
         '/colab/files' => [[['_route' => 'app_view_allfiles_byuser', '_controller' => 'App\\Controller\\ClientController::view_files_all'], null, null, null, false, false, null]],
+        '/demo' => [[['_route' => 'app_demo', '_controller' => 'App\\Controller\\DemoController::index'], null, null, null, false, false, null]],
         '/admin/view_fd' => [[['_route' => 'app_view_fd', '_controller' => 'App\\Controller\\FdController::View_client'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],

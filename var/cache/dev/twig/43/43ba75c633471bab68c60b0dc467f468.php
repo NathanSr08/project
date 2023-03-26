@@ -210,6 +210,6 @@ class __TwigTemplate_ca4e22b25ee1b0732009340cb355f8ab extends Template
 <button type=\"submite\" class=\"btn btn-success\">Success</button>
   </form>
   </div>
-{% endblock%}", "files/add.html.twig", "/home/lab/symf_docker/project/templates/files/add.html.twig");
+{% endblock%}", "files/add.html.twig", "/var/www/project/templates/files/add.html.twig");
     }
 }

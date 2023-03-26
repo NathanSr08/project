@@ -205,6 +205,6 @@ class __TwigTemplate_af0e1be37004650e78ee99d461e031ca extends Template
     
   </tbody>
 </table>
-{% endblock %}", "client/tab.html.twig", "/home/lab/symf_docker/project/templates/client/tab.html.twig");
+{% endblock %}", "client/tab.html.twig", "/var/www/project/templates/client/tab.html.twig");
     }
 }

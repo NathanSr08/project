@@ -2,10 +2,8 @@
 
 namespace Symfony\Config\Monolog\HandlerConfig;
 
-
 use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-
 
 /**
  * This class is automatically generated to help in creating a config.
@@ -19,7 +17,7 @@ class ElasticsearchConfig
     private $user;
     private $password;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -29,10 +27,10 @@ class ElasticsearchConfig
     {
         $this->_usedProperties['id'] = true;
         $this->id = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -42,10 +40,10 @@ class ElasticsearchConfig
     {
         $this->_usedProperties['host'] = true;
         $this->host = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 9200
      * @param ParamConfigurator|mixed $value
@@ -55,10 +53,10 @@ class ElasticsearchConfig
     {
         $this->_usedProperties['port'] = true;
         $this->port = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'Http'
      * @param ParamConfigurator|mixed $value
@@ -68,10 +66,10 @@ class ElasticsearchConfig
     {
         $this->_usedProperties['transport'] = true;
         $this->transport = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -81,10 +79,10 @@ class ElasticsearchConfig
     {
         $this->_usedProperties['user'] = true;
         $this->user = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -94,54 +92,53 @@ class ElasticsearchConfig
     {
         $this->_usedProperties['password'] = true;
         $this->password = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
-    
         if (array_key_exists('id', $value)) {
             $this->_usedProperties['id'] = true;
             $this->id = $value['id'];
             unset($value['id']);
         }
-    
+
         if (array_key_exists('host', $value)) {
             $this->_usedProperties['host'] = true;
             $this->host = $value['host'];
             unset($value['host']);
         }
-    
+
         if (array_key_exists('port', $value)) {
             $this->_usedProperties['port'] = true;
             $this->port = $value['port'];
             unset($value['port']);
         }
-    
+
         if (array_key_exists('transport', $value)) {
             $this->_usedProperties['transport'] = true;
             $this->transport = $value['transport'];
             unset($value['transport']);
         }
-    
+
         if (array_key_exists('user', $value)) {
             $this->_usedProperties['user'] = true;
             $this->user = $value['user'];
             unset($value['user']);
         }
-    
+
         if (array_key_exists('password', $value)) {
             $this->_usedProperties['password'] = true;
             $this->password = $value['password'];
             unset($value['password']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -163,7 +160,7 @@ class ElasticsearchConfig
         if (isset($this->_usedProperties['password'])) {
             $output['password'] = $this->password;
         }
-    
+
         return $output;
     }
 

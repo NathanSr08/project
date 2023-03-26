@@ -93,7 +93,7 @@ class __TwigTemplate_11c6e18172bbfdcc55330a54d9b3b653 extends Template
         }
         // line 10
         echo "<div class=\"container\">
-<form method=\"post\">
+<form method=\"post\" id=\"salut\">
   
 
     ";
@@ -172,7 +172,7 @@ class __TwigTemplate_11c6e18172bbfdcc55330a54d9b3b653 extends Template
         <div class=\"alert alert-danger\">Adresse Mail ou mot de passe incorrecte!</div>
     {% endif %}
 <div class=\"container\">
-<form method=\"post\">
+<form method=\"post\" id=\"salut\">
   
 
     {% if app.user %}
@@ -208,6 +208,6 @@ class __TwigTemplate_11c6e18172bbfdcc55330a54d9b3b653 extends Template
 </form>
 </div>
 {% endblock %}
-", "security/login.html.twig", "/home/lab/symf_docker/project/templates/security/login.html.twig");
+", "security/login.html.twig", "/var/www/project/templates/security/login.html.twig");
     }
 }

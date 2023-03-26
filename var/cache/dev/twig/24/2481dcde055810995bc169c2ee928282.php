@@ -217,6 +217,6 @@ class __TwigTemplate_706b23ad846492c9c58ccb4014bddd0c extends Template
             } );
     </script>
 {% endblock %}
-", "sms/index.html.twig", "/home/lab/symf_docker/project/templates/sms/index.html.twig");
+", "sms/index.html.twig", "/var/www/project/templates/sms/index.html.twig");
     }
 }

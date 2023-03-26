@@ -10,6 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Entity\InfoClient;
 use App\Entity\Admin;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\FichierClient;
 use App\Entity\FichierDemande;
 use App\Repository\AdminRepository;
@@ -61,6 +62,10 @@ class SecurityController extends AbstractController
        
         $form = $this->createForm(ClientType::class,$cli);
         $form->handleRequest($request);
+        // if($form->isSubmitted() && !$form->isValid())
+        // {
+        //     return $this->render('tuestconnecter/index.html.twig', [ 'form' => $form->isValid(), ]);
+        // }
         if($form->isSubmitted() && $form->isValid() )
         {
             

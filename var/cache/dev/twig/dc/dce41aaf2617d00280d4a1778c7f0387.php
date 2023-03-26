@@ -330,6 +330,6 @@ class __TwigTemplate_bc9d1749894dce7ad4413b496bdb2a4f extends Template
     {% endif %}
 
 {% endblock %}
-", "@WebProfiler/Profiler/results.html.twig", "/home/lab/symf_docker/project/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/results.html.twig");
+", "@WebProfiler/Profiler/results.html.twig", "/var/www/project/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/results.html.twig");
     }
 }

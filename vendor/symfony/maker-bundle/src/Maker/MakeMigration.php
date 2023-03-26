@@ -31,10 +31,16 @@ use Symfony\Component\Console\Input\InputOption;
  */
 final class MakeMigration extends AbstractMaker implements ApplicationAwareMakerInterface
 {
-    private Application $application;
+    private $projectDir;
 
-    public function __construct(private string $projectDir)
+    /**
+     * @var Application
+     */
+    private $application;
+
+    public function __construct(string $projectDir)
     {
+        $this->projectDir = $projectDir;
     }
 
     public static function getCommandName(): string
@@ -104,12 +110,12 @@ final class MakeMigration extends AbstractMaker implements ApplicationAwareMaker
 
             $migrationOutput = $commandOutput->fetch();
 
-            if (str_contains($migrationOutput, 'No changes detected')) {
+            if (false !== strpos($migrationOutput, 'No changes detected')) {
                 $this->noChangesMessage($io);
 
                 return;
             }
-        } catch (\Doctrine\Migrations\Generator\Exception\NoChangesDetected) {
+        } catch (\Doctrine\Migrations\Generator\Exception\NoChangesDetected $exception) {
             $this->noChangesMessage($io);
 
             return;

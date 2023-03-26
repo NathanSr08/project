@@ -241,6 +241,7 @@
       <parameter>dev</parameter>
       <parameter>main</parameter>
     </parameter>
+    <parameter key="maker.compatible_check.doctrine.supports_attributes">true</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -342,6 +343,13 @@
         <argument type="service" id=".service_locator.mx0UMmY.App\Controller\ClientController"/>
       </call>
     </service>
+    <service id="App\Controller\DemoController" class="App\Controller\DemoController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.mx0UMmY.App\Controller\DemoController"/>
+      </call>
+    </service>
     <service id="App\Controller\FdController" class="App\Controller\FdController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -391,6 +399,9 @@
     <service id="App\Form\ClientType" class="App\Form\ClientType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\DemoType" class="App\Form\DemoType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\FormAddFdType" class="App\Form\FormAddFdType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -398,6 +409,10 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\DemoRepository" class="App\Repository\DemoRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1062,6 +1077,7 @@
       <argument type="collection">
         <argument>App\Form\AddFileType</argument>
         <argument>App\Form\ClientType</argument>
+        <argument>App\Form\DemoType</argument>
         <argument>App\Form\FormAddFdType</argument>
         <argument>App\Form\RegistrationFormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
@@ -3130,7 +3146,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.9zPZ1Nl"/>
+      <argument type="service" id=".service_locator.rqFbwZO"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4289,7 +4305,9 @@
     </service>
     <service id="maker.doctrine_helper" class="Symfony\Bundle\MakerBundle\Doctrine\DoctrineHelper">
       <argument>App\Entity</argument>
+      <argument type="service" id="maker.php_compat_util"/>
       <argument type="service" id="doctrine" on-invalid="ignore"/>
+      <argument>true</argument>
       <argument type="collection">
         <argument key="default" type="collection">
           <argument type="collection">
@@ -4307,7 +4325,7 @@
     <service id="maker.generator" class="Symfony\Bundle\MakerBundle\Generator">
       <argument type="service" id="maker.file_manager"/>
       <argument>App</argument>
-      <argument>null</argument>
+      <argument type="service" id="maker.php_compat_util"/>
       <argument type="service" id="maker.template_component_generator"/>
     </service>
     <service id="maker.entity_class_generator" class="Symfony\Bundle\MakerBundle\Doctrine\EntityClassGenerator">
@@ -4319,11 +4337,15 @@
     <service id="maker.renderer.form_type_renderer" class="Symfony\Bundle\MakerBundle\Renderer\FormTypeRenderer">
       <argument type="service" id="maker.generator"/>
     </service>
-    <service id="maker.security_controller_builder" class="Symfony\Bundle\MakerBundle\Security\SecurityControllerBuilder"/>
+    <service id="maker.security_controller_builder" class="Symfony\Bundle\MakerBundle\Security\SecurityControllerBuilder">
+      <argument type="service" id="maker.php_compat_util"/>
+    </service>
     <service id="maker.php_compat_util" class="Symfony\Bundle\MakerBundle\Util\PhpCompatUtil">
       <argument type="service" id="maker.file_manager"/>
     </service>
-    <service id="maker.template_component_generator" class="Symfony\Bundle\MakerBundle\Util\TemplateComponentGenerator"/>
+    <service id="maker.template_component_generator" class="Symfony\Bundle\MakerBundle\Util\TemplateComponentGenerator">
+      <argument type="service" id="maker.php_compat_util"/>
+    </service>
     <service id="maker.maker.make_authenticator" class="Symfony\Bundle\MakerBundle\Maker\MakeAuthenticator">
       <tag name="maker.command"/>
       <argument type="service" id="maker.file_manager"/>
@@ -4335,9 +4357,6 @@
     <service id="maker.maker.make_command" class="Symfony\Bundle\MakerBundle\Maker\MakeCommand">
       <tag name="maker.command"/>
       <argument type="service" id="maker.php_compat_util"/>
-    </service>
-    <service id="maker.maker.make_twig_component" class="Symfony\Bundle\MakerBundle\Maker\MakeTwigComponent">
-      <tag name="maker.command"/>
     </service>
     <service id="maker.maker.make_controller" class="Symfony\Bundle\MakerBundle\Maker\MakeController">
       <tag name="maker.command"/>
@@ -4384,8 +4403,8 @@
       <tag name="maker.command"/>
       <argument type="service" id="maker.file_manager"/>
       <argument type="service" id="maker.renderer.form_type_renderer"/>
+      <argument type="service" id="router.default"/>
       <argument type="service" id="maker.doctrine_helper"/>
-      <argument type="service" id="router.default" on-invalid="ignore"/>
     </service>
     <service id="maker.maker.make_reset_password" class="Symfony\Bundle\MakerBundle\Maker\MakeResetPassword">
       <tag name="maker.command"/>
@@ -4597,7 +4616,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.XiuItHE"/>
+      <argument type="service" id=".service_locator.WJy0uvz"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5861,6 +5880,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ClientController" class="App\Controller\ClientController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\DemoController" class="App\Controller\DemoController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\DemoController" class="App\Controller\DemoController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\DemoController" class="App\Controller\DemoController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\FdController" class="App\Controller\FdController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\FdController" class="App\Controller\FdController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\FdController" class="App\Controller\FdController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5884,12 +5906,16 @@
     <service id=".abstract.instanceof.App\Form\AddFileType" class="App\Form\AddFileType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ClientType" class="App\Form\ClientType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\ClientType" class="App\Form\ClientType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\DemoType" class="App\Form\DemoType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\DemoType" class="App\Form\DemoType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\FormAddFdType" class="App\Form\FormAddFdType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\FormAddFdType" class="App\Form\FormAddFdType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DemoRepository" class="App\Repository\DemoRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\DemoRepository" class="App\Repository\DemoRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FichierClientRepository" class="App\Repository\FichierClientRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\FichierClientRepository" class="App\Repository\FichierClientRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FichierDemandeRepository" class="App\Repository\FichierDemandeRepository" autowire="true" abstract="true"/>
@@ -5944,19 +5970,6 @@
       </call>
       <call method="setDescription">
         <argument>Creates a new console command class</argument>
-      </call>
-    </service>
-    <service id="maker.auto_command.make_twig_component" class="Symfony\Bundle\MakerBundle\Command\MakerCommand">
-      <tag name="console.command" command="make:twig-component" description="Creates a twig (or live) component"/>
-      <tag name="container.no_preload"/>
-      <argument type="service" id="maker.maker.make_twig_component"/>
-      <argument type="service" id="maker.file_manager"/>
-      <argument type="service" id="maker.generator"/>
-      <call method="setName">
-        <argument>make:twig-component</argument>
-      </call>
-      <call method="setDescription">
-        <argument>Creates a twig (or live) component</argument>
       </call>
     </service>
     <service id="maker.auto_command.make_controller" class="Symfony\Bundle\MakerBundle\Command\MakerCommand">
@@ -6129,7 +6142,7 @@
       </call>
     </service>
     <service id="maker.auto_command.make_twig_extension" class="Symfony\Bundle\MakerBundle\Command\MakerCommand">
-      <tag name="console.command" command="make:twig-extension" description="Creates a new Twig extension with its runtime class"/>
+      <tag name="console.command" command="make:twig-extension" description="Creates a new Twig extension class"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="maker.maker.make_twig_extension"/>
       <argument type="service" id="maker.file_manager"/>
@@ -6138,7 +6151,7 @@
         <argument>make:twig-extension</argument>
       </call>
       <call method="setDescription">
-        <argument>Creates a new Twig extension with its runtime class</argument>
+        <argument>Creates a new Twig extension class</argument>
       </call>
     </service>
     <service id="maker.auto_command.make_test" class="Symfony\Bundle\MakerBundle\Command\MakerCommand">
@@ -6401,11 +6414,12 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.9zPZ1Nl" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.rqFbwZO" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\AddFileType" type="service_closure" id="App\Form\AddFileType"/>
         <argument key="App\Form\ClientType" type="service_closure" id="App\Form\ClientType"/>
+        <argument key="App\Form\DemoType" type="service_closure" id="App\Form\DemoType"/>
         <argument key="App\Form\FormAddFdType" type="service_closure" id="App\Form\FormAddFdType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
@@ -6605,10 +6619,11 @@
         <argument key="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.listeners.pdo_cache_adapter_doctrine_schema_subscriber"/>
       </argument>
     </service>
-    <service id=".service_locator.XiuItHE" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.WJy0uvz" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AdminRepository" type="service_closure" id="App\Repository\AdminRepository"/>
+        <argument key="App\Repository\DemoRepository" type="service_closure" id="App\Repository\DemoRepository"/>
         <argument key="App\Repository\FichierClientRepository" type="service_closure" id="App\Repository\FichierClientRepository"/>
         <argument key="App\Repository\FichierDemandeRepository" type="service_closure" id="App\Repository\FichierDemandeRepository"/>
         <argument key="App\Repository\InfoClientRepository" type="service_closure" id="App\Repository\InfoClientRepository"/>
@@ -6695,6 +6710,12 @@
     <service id=".service_locator.mx0UMmY.App\Controller\ClientController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\ClientController"/>
       <argument>App\Controller\ClientController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.mx0UMmY" method="withContext"/>
+    </service>
+    <service id=".service_locator.mx0UMmY.App\Controller\DemoController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\DemoController"/>
+      <argument>App\Controller\DemoController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.mx0UMmY" method="withContext"/>
     </service>
@@ -7208,13 +7229,6 @@
       <argument>false</argument>
       <argument type="service_closure" id="maker.auto_command.make_command"/>
     </service>
-    <service id=".maker.auto_command.make_twig_component.lazy" class="Symfony\Component\Console\Command\LazyCommand">
-      <argument>make:twig-component</argument>
-      <argument type="collection"/>
-      <argument>Creates a twig (or live) component</argument>
-      <argument>false</argument>
-      <argument type="service_closure" id="maker.auto_command.make_twig_component"/>
-    </service>
     <service id=".maker.auto_command.make_controller.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>make:controller</argument>
       <argument type="collection"/>
@@ -7309,7 +7323,7 @@
     <service id=".maker.auto_command.make_twig_extension.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>make:twig-extension</argument>
       <argument type="collection"/>
-      <argument>Creates a new Twig extension with its runtime class</argument>
+      <argument>Creates a new Twig extension class</argument>
       <argument>false</argument>
       <argument type="service_closure" id="maker.auto_command.make_twig_extension"/>
     </service>
@@ -7360,7 +7374,7 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.rnC_kjn"/>
+      <argument type="service" id=".service_locator.zUYdoyT"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -7436,7 +7450,6 @@
         <argument key="doctrine:fixtures:load">doctrine.fixtures_load_command</argument>
         <argument key="make:auth">maker.auto_command.make_auth</argument>
         <argument key="make:command">maker.auto_command.make_command</argument>
-        <argument key="make:twig-component">maker.auto_command.make_twig_component</argument>
         <argument key="make:controller">maker.auto_command.make_controller</argument>
         <argument key="make:crud">maker.auto_command.make_crud</argument>
         <argument key="make:docker:database">maker.auto_command.make_docker_database</argument>
@@ -7461,7 +7474,7 @@
         <argument key="make:stimulus-controller">maker.auto_command.make_stimulus_controller</argument>
       </argument>
     </service>
-    <service id=".service_locator.rnC_kjn" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.zUYdoyT" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
@@ -7537,7 +7550,6 @@
         <argument key="doctrine.fixtures_load_command" type="service_closure" id="doctrine.fixtures_load_command"/>
         <argument key="maker.auto_command.make_auth" type="service_closure" id=".maker.auto_command.make_auth.lazy"/>
         <argument key="maker.auto_command.make_command" type="service_closure" id=".maker.auto_command.make_command.lazy"/>
-        <argument key="maker.auto_command.make_twig_component" type="service_closure" id=".maker.auto_command.make_twig_component.lazy"/>
         <argument key="maker.auto_command.make_controller" type="service_closure" id=".maker.auto_command.make_controller.lazy"/>
         <argument key="maker.auto_command.make_crud" type="service_closure" id=".maker.auto_command.make_crud.lazy"/>
         <argument key="maker.auto_command.make_docker_database" type="service_closure" id=".maker.auto_command.make_docker_database.lazy"/>
@@ -7822,7 +7834,7 @@
     <service id=".service_locator.BSOz1f3" alias=".service_locator.dFxcI4q"/>
     <service id=".service_locator.Av5PV3r" alias=".service_locator.BnXpsUt"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
-    <service id=".service_locator.Db0O1Ct" alias=".service_locator.9zPZ1Nl"/>
+    <service id=".service_locator.KxgwikT" alias=".service_locator.rqFbwZO"/>
     <service id=".service_locator.4hi2aOY" alias=".service_locator.bBRwv06"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator.0ghLsew" alias=".service_locator.mx0UMmY"/>

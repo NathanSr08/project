@@ -85,29 +85,11 @@ class __TwigTemplate_8c22d0d205ffca3e0738b1060aa74b89 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        echo "<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class=\"example-wrapper\">
-    <h1>Hello ";
-        // line 12
-        echo twig_escape_filter($this->env, (isset($context["controller_name"]) || array_key_exists("controller_name", $context) ? $context["controller_name"] : (function () { throw new RuntimeError('Variable "controller_name" does not exist.', 12, $this->source); })()), "html", null, true);
-        echo "! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href=\"";
-        // line 16
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/home/sio/docker-symfony/project/src/Controller/TuestconnecterController.php", 0), "html", null, true);
-        echo "\">src/Controller/TuestconnecterController.php</a></code></li>
-        <li>Your template at <code><a href=\"";
-        // line 17
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("/home/sio/docker-symfony/project/templates/tuestconnecter/index.html.twig", 0), "html", null, true);
-        echo "\">templates/tuestconnecter/index.html.twig</a></code></li>
-    </ul>
-</div>
+        echo "<h1>salut</h1>
+";
+        // line 7
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\DumpExtension']->dump($this->env, $context, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 7, $this->source); })()));
+        echo "
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -129,7 +111,7 @@ class __TwigTemplate_8c22d0d205ffca3e0738b1060aa74b89 extends Template
 
     public function getDebugInfo()
     {
-        return array (  107 => 17,  103 => 16,  96 => 12,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  91 => 7,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -139,21 +121,9 @@ class __TwigTemplate_8c22d0d205ffca3e0738b1060aa74b89 extends Template
 {% block title %}Hello TuestconnecterController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class=\"example-wrapper\">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href=\"{{ '/home/sio/docker-symfony/project/src/Controller/TuestconnecterController.php'|file_link(0) }}\">src/Controller/TuestconnecterController.php</a></code></li>
-        <li>Your template at <code><a href=\"{{ '/home/sio/docker-symfony/project/templates/tuestconnecter/index.html.twig'|file_link(0) }}\">templates/tuestconnecter/index.html.twig</a></code></li>
-    </ul>
-</div>
+<h1>salut</h1>
+{{ dump(form) }}
 {% endblock %}
-", "tuestconnecter/index.html.twig", "/home/lab/symf_docker/project/templates/tuestconnecter/index.html.twig");
+", "tuestconnecter/index.html.twig", "/var/www/project/templates/tuestconnecter/index.html.twig");
     }
 }

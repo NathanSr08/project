@@ -32,13 +32,20 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class MakerCommand extends Command
 {
-    private InputConfiguration $inputConfig;
-    private ConsoleStyle $io;
-    private bool $checkDependencies = true;
+    private $maker;
+    private $fileManager;
+    private $inputConfig;
+    /** @var ConsoleStyle */
+    private $io;
+    private $checkDependencies = true;
+    private $generator;
 
-    public function __construct(private MakerInterface $maker, private FileManager $fileManager, private Generator $generator)
+    public function __construct(MakerInterface $maker, FileManager $fileManager, Generator $generator)
     {
+        $this->maker = $maker;
+        $this->fileManager = $fileManager;
         $this->inputConfig = new InputConfiguration();
+        $this->generator = $generator;
 
         parent::__construct();
     }
@@ -56,6 +63,10 @@ final class MakerCommand extends Command
         if ($this->checkDependencies) {
             $dependencies = new DependencyBuilder();
             $this->maker->configureDependencies($dependencies, $input);
+
+            if (!$dependencies->isPhpVersionSatisfied()) {
+                throw new RuntimeCommandException('The make:entity command requires that you use PHP 7.1 or higher.');
+            }
 
             if ($missingPackagesMessage = $dependencies->getMissingPackagesMessage($this->getName())) {
                 throw new RuntimeCommandException($missingPackagesMessage);

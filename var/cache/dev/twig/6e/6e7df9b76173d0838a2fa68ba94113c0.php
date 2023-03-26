@@ -173,6 +173,6 @@ class __TwigTemplate_9cdc3b58201fe76958f3358f705715bf extends Template
     {{ form_end(registrationForm) }}
     </div>
 {% endblock %}
-", "registration/register.html.twig", "/home/lab/symf_docker/project/templates/registration/register.html.twig");
+", "registration/register.html.twig", "/var/www/project/templates/registration/register.html.twig");
     }
 }

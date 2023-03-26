@@ -975,6 +975,6 @@ class Theme {
         return hash >>> 0;
     }
 }
-", "@WebProfiler/Collector/time.js", "/home/lab/symf_docker/project/vendor/symfony/web-profiler-bundle/Resources/views/Collector/time.js");
+", "@WebProfiler/Collector/time.js", "/var/www/project/vendor/symfony/web-profiler-bundle/Resources/views/Collector/time.js");
     }
 }

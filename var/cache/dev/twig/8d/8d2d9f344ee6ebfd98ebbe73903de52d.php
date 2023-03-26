@@ -97,6 +97,6 @@ class __TwigTemplate_e586da82156f2d313d49cb4787140ac1 extends Template
         </div>
     </div>
 </div>
-", "@WebProfiler/Profiler/header.html.twig", "/home/lab/symf_docker/project/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/header.html.twig");
+", "@WebProfiler/Profiler/header.html.twig", "/var/www/project/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/header.html.twig");
     }
 }

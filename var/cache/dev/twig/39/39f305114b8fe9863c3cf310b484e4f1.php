@@ -103,7 +103,7 @@ Le Client à été crée!
 
 ";
         // line 19
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 19, $this->source); })()), 'form_start');
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 19, $this->source); })()), 'form_start', ["attr" => ["id" => "add_client"]]);
         echo "
 ";
         // line 20
@@ -160,10 +160,11 @@ Le Client à été crée!
  </div>
 </div>
 <br>
-<button type=\"submite\" class=\"btn btn-success\">AJouter</button>
+
+<button type=\"submit\" class=\"btn btn-success\">Ajouter</button>
 ";
-        // line 46
-        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 46, $this->source); })()), 'form_end');
+        // line 47
+        echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 47, $this->source); })()), 'form_end');
         echo "
 
 </div>
@@ -188,7 +189,7 @@ Le Client à été crée!
 
     public function getDebugInfo()
     {
-        return array (  166 => 46,  158 => 41,  154 => 40,  150 => 39,  142 => 34,  138 => 33,  133 => 31,  129 => 30,  120 => 24,  114 => 21,  110 => 20,  106 => 19,  96 => 11,  90 => 7,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  167 => 47,  158 => 41,  154 => 40,  150 => 39,  142 => 34,  138 => 33,  133 => 31,  129 => 30,  120 => 24,  114 => 21,  110 => 20,  106 => 19,  96 => 11,  90 => 7,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -211,7 +212,7 @@ Le Client à été crée!
 
 
 
-{{ form_start(form) }}
+{{ form_start(form,{ 'attr': { 'id' : 'add_client' } }) }}
 {{form_row(form.Nom)}}
 {{form_row(form.Prenom)}}
 
@@ -237,11 +238,12 @@ Le Client à été crée!
  </div>
 </div>
 <br>
-<button type=\"submite\" class=\"btn btn-success\">AJouter</button>
+
+<button type=\"submit\" class=\"btn btn-success\">Ajouter</button>
 {{ form_end(form) }}
 
 </div>
 {% endblock %}
-", "client/add.html.twig", "/home/lab/symf_docker/project/templates/client/add.html.twig");
+", "client/add.html.twig", "/var/www/project/templates/client/add.html.twig");
     }
 }

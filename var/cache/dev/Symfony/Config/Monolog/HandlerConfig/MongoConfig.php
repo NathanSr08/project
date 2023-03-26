@@ -2,10 +2,8 @@
 
 namespace Symfony\Config\Monolog\HandlerConfig;
 
-
 use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-
 
 /**
  * This class is automatically generated to help in creating a config.
@@ -20,7 +18,7 @@ class MongoConfig
     private $database;
     private $collection;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -30,10 +28,10 @@ class MongoConfig
     {
         $this->_usedProperties['id'] = true;
         $this->id = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -43,10 +41,10 @@ class MongoConfig
     {
         $this->_usedProperties['host'] = true;
         $this->host = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 27017
      * @param ParamConfigurator|mixed $value
@@ -56,10 +54,10 @@ class MongoConfig
     {
         $this->_usedProperties['port'] = true;
         $this->port = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -69,10 +67,10 @@ class MongoConfig
     {
         $this->_usedProperties['user'] = true;
         $this->user = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -82,10 +80,10 @@ class MongoConfig
     {
         $this->_usedProperties['pass'] = true;
         $this->pass = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'monolog'
      * @param ParamConfigurator|mixed $value
@@ -95,10 +93,10 @@ class MongoConfig
     {
         $this->_usedProperties['database'] = true;
         $this->database = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default 'logs'
      * @param ParamConfigurator|mixed $value
@@ -108,60 +106,59 @@ class MongoConfig
     {
         $this->_usedProperties['collection'] = true;
         $this->collection = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
-    
         if (array_key_exists('id', $value)) {
             $this->_usedProperties['id'] = true;
             $this->id = $value['id'];
             unset($value['id']);
         }
-    
+
         if (array_key_exists('host', $value)) {
             $this->_usedProperties['host'] = true;
             $this->host = $value['host'];
             unset($value['host']);
         }
-    
+
         if (array_key_exists('port', $value)) {
             $this->_usedProperties['port'] = true;
             $this->port = $value['port'];
             unset($value['port']);
         }
-    
+
         if (array_key_exists('user', $value)) {
             $this->_usedProperties['user'] = true;
             $this->user = $value['user'];
             unset($value['user']);
         }
-    
+
         if (array_key_exists('pass', $value)) {
             $this->_usedProperties['pass'] = true;
             $this->pass = $value['pass'];
             unset($value['pass']);
         }
-    
+
         if (array_key_exists('database', $value)) {
             $this->_usedProperties['database'] = true;
             $this->database = $value['database'];
             unset($value['database']);
         }
-    
+
         if (array_key_exists('collection', $value)) {
             $this->_usedProperties['collection'] = true;
             $this->collection = $value['collection'];
             unset($value['collection']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -186,7 +183,7 @@ class MongoConfig
         if (isset($this->_usedProperties['collection'])) {
             $output['collection'] = $this->collection;
         }
-    
+
         return $output;
     }
 

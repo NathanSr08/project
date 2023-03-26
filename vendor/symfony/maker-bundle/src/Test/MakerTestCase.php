@@ -20,12 +20,13 @@ use Symfony\Component\Process\Process;
 
 abstract class MakerTestCase extends TestCase
 {
-    private ?KernelInterface $kernel = null;
+    /**
+     * @var KernelInterface
+     */
+    private $kernel;
 
     /**
      * @dataProvider getTestDetails
-     *
-     * @return void
      */
     public function testExecute(MakerTestDetails $makerTestDetails)
     {
@@ -41,9 +42,6 @@ abstract class MakerTestCase extends TestCase
         return new MakerTestDetails($this->getMakerInstance($this->getMakerClass()));
     }
 
-    /**
-     * @return void
-     */
     protected function executeMakerCommand(MakerTestDetails $testDetails)
     {
         if (!class_exists(Process::class)) {
@@ -77,7 +75,7 @@ abstract class MakerTestCase extends TestCase
         foreach ($files as $file) {
             $this->assertTrue($testEnv->fileExists($file), sprintf('The file "%s" does not exist after generation', $file));
 
-            if (str_ends_with($file, '.php')) {
+            if ('.php' === substr($file, -4)) {
                 $csProcess = $testEnv->runPhpCSFixer($file);
 
                 $this->assertTrue($csProcess->isSuccessful(), sprintf(
@@ -87,7 +85,7 @@ abstract class MakerTestCase extends TestCase
                 ));
             }
 
-            if (str_ends_with($file, '.twig')) {
+            if ('.twig' === substr($file, -5)) {
                 $csProcess = $testEnv->runTwigCSLint($file);
 
                 $this->assertTrue($csProcess->isSuccessful(), sprintf('File "%s" has a twig-cs problem: %s', $file, $csProcess->getErrorOutput()."\n".$csProcess->getOutput()));
@@ -95,9 +93,6 @@ abstract class MakerTestCase extends TestCase
         }
     }
 
-    /**
-     * @return void
-     */
     protected function assertContainsCount(string $needle, string $haystack, int $count)
     {
         $this->assertEquals(1, substr_count($haystack, $needle), sprintf('Found more than %d occurrences of "%s" in "%s"', $count, $needle, $haystack));
@@ -111,7 +106,7 @@ abstract class MakerTestCase extends TestCase
         }
 
         // a cheap way to guess the service id
-        $serviceId ??= sprintf('maker.maker.%s', Str::asSnakeCase((new \ReflectionClass($makerClass))->getShortName()));
+        $serviceId = $serviceId ?? sprintf('maker.maker.%s', Str::asSnakeCase((new \ReflectionClass($makerClass))->getShortName()));
 
         return $this->kernel->getContainer()->get($serviceId);
     }
@@ -127,9 +122,8 @@ abstract class MakerTestCase extends TestCase
             return true;
         }
 
-        $installedPackages = json_decode($testEnv->readFile('vendor/composer/installed.json'), true, 512, \JSON_THROW_ON_ERROR);
+        $installedPackages = json_decode($testEnv->readFile('vendor/composer/installed.json'), true);
         $packageVersions = [];
-
         foreach ($installedPackages['packages'] ?? $installedPackages as $installedPackage) {
             $packageVersions[$installedPackage['name']] = $installedPackage['version_normalized'];
         }
@@ -148,5 +142,25 @@ abstract class MakerTestCase extends TestCase
         }
 
         return true;
+    }
+
+    public static function assertStringContainsString(string $needle, string $haystack, string $message = ''): void
+    {
+        if (method_exists(TestCase::class, 'assertStringContainsString')) {
+            parent::assertStringContainsString($needle, $haystack, $message);
+        } else {
+            // legacy for older phpunit versions (e.g. older php version on CI)
+            self::assertContains($needle, $haystack, $message);
+        }
+    }
+
+    public static function assertStringNotContainsString(string $needle, string $haystack, string $message = ''): void
+    {
+        if (method_exists(TestCase::class, 'assertStringNotContainsString')) {
+            parent::assertStringNotContainsString($needle, $haystack, $message);
+        } else {
+            // legacy for older phpunit versions (e.g. older php version on CI)
+            self::assertNotContains($needle, $haystack, $message);
+        }
     }
 }

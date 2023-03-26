@@ -16,9 +16,11 @@ namespace Symfony\Bundle\MakerBundle\Util;
  */
 final class ClassDetails
 {
-    public function __construct(
-        private string $fullClassName,
-    ) {
+    private $fullClassName;
+
+    public function __construct(string $fullClassName)
+    {
+        $this->fullClassName = $fullClassName;
     }
 
     /**
@@ -70,6 +72,6 @@ final class ClassDetails
             return false;
         }
 
-        return str_contains($docComment, $annotation);
+        return false !== strpos($docComment, $annotation);
     }
 }

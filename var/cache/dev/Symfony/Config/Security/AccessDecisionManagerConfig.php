@@ -2,10 +2,8 @@
 
 namespace Symfony\Config\Security;
 
-
 use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-
 
 /**
  * This class is automatically generated to help in creating a config.
@@ -18,7 +16,7 @@ class AccessDecisionManagerConfig
     private $allowIfAllAbstain;
     private $allowIfEqualGrantedDenied;
     private $_usedProperties = [];
-    
+
     /**
      * @default null
      * @param ParamConfigurator|'affirmative'|'consensus'|'unanimous'|'priority' $value
@@ -28,10 +26,10 @@ class AccessDecisionManagerConfig
     {
         $this->_usedProperties['strategy'] = true;
         $this->strategy = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -41,10 +39,10 @@ class AccessDecisionManagerConfig
     {
         $this->_usedProperties['service'] = true;
         $this->service = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default null
      * @param ParamConfigurator|mixed $value
@@ -54,10 +52,10 @@ class AccessDecisionManagerConfig
     {
         $this->_usedProperties['strategyService'] = true;
         $this->strategyService = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default false
      * @param ParamConfigurator|bool $value
@@ -67,10 +65,10 @@ class AccessDecisionManagerConfig
     {
         $this->_usedProperties['allowIfAllAbstain'] = true;
         $this->allowIfAllAbstain = $value;
-    
+
         return $this;
     }
-    
+
     /**
      * @default true
      * @param ParamConfigurator|bool $value
@@ -80,48 +78,47 @@ class AccessDecisionManagerConfig
     {
         $this->_usedProperties['allowIfEqualGrantedDenied'] = true;
         $this->allowIfEqualGrantedDenied = $value;
-    
+
         return $this;
     }
-    
+
     public function __construct(array $value = [])
     {
-    
         if (array_key_exists('strategy', $value)) {
             $this->_usedProperties['strategy'] = true;
             $this->strategy = $value['strategy'];
             unset($value['strategy']);
         }
-    
+
         if (array_key_exists('service', $value)) {
             $this->_usedProperties['service'] = true;
             $this->service = $value['service'];
             unset($value['service']);
         }
-    
+
         if (array_key_exists('strategy_service', $value)) {
             $this->_usedProperties['strategyService'] = true;
             $this->strategyService = $value['strategy_service'];
             unset($value['strategy_service']);
         }
-    
+
         if (array_key_exists('allow_if_all_abstain', $value)) {
             $this->_usedProperties['allowIfAllAbstain'] = true;
             $this->allowIfAllAbstain = $value['allow_if_all_abstain'];
             unset($value['allow_if_all_abstain']);
         }
-    
+
         if (array_key_exists('allow_if_equal_granted_denied', $value)) {
             $this->_usedProperties['allowIfEqualGrantedDenied'] = true;
             $this->allowIfEqualGrantedDenied = $value['allow_if_equal_granted_denied'];
             unset($value['allow_if_equal_granted_denied']);
         }
-    
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
     }
-    
+
     public function toArray(): array
     {
         $output = [];
@@ -140,7 +137,7 @@ class AccessDecisionManagerConfig
         if (isset($this->_usedProperties['allowIfEqualGrantedDenied'])) {
             $output['allow_if_equal_granted_denied'] = $this->allowIfEqualGrantedDenied;
         }
-    
+
         return $output;
     }
 
